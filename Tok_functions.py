@@ -1,6 +1,7 @@
 import numpy as np
 from constants import Constants
 
+
 # Все функции считают в СИ, однако пользователь задает величины фиг знает в чем, нужно сперва их все перевести
 
 # Плазменная частота свободных колебаний
@@ -9,7 +10,8 @@ from constants import Constants
 # N0 - концентрация свободных носителей заряда, в СИ. Пользователь задает в СГС (может нафиг СИ??)
 # eps_inf - диэлектрическая проницаемость для частот много больше фотонных
 def plasma_freq_of_free_oscillations(N0: float, eps_inf: float):
-    return Constants.e/(2*np.pi*Constants.c)*np.sqrt(4*np.pi*N0/(Constants.m0*eps_inf))
+    return Constants.e / (2 * np.pi * Constants.c) * np.sqrt(4 * np.pi * N0 / (Constants.m0 * eps_inf))
+
 
 # все плазменные частоты для связных зарядов
 # все принимаемые величины задаются пользователем
@@ -20,8 +22,9 @@ def plasma_freq_of_free_oscillations(N0: float, eps_inf: float):
 # возвращает массив частот
 def plasma_freq_of_connected_charges(ei: np.array, Ni: np.array, mi: np.array, eps_inf: float):
     dim = ei.size
-    assert(dim == Ni.size and mi.size == dim)
-    return ei/(2*np.pi*Constants.c)*np.sqrt(4*np.pi*Ni/(3*mi*eps_inf))
+    assert (dim == Ni.size and mi.size == dim)
+    return ei / (2 * np.pi * Constants.c) * np.sqrt(4 * np.pi * Ni / (3 * mi * eps_inf))
+
 
 # диэлектрическая проницаемость от частоты
 # freq_p0 считается функцией plasma_freq_of_free_oscillations
@@ -32,6 +35,8 @@ def plasma_freq_of_connected_charges(ei: np.array, Ni: np.array, mi: np.array, e
 # eps_inf - диэлектрическая проницаемость для частот много больше фотонных, задается пользователем
 # v - частота, аргумент функции (хз откуда берется)
 # возращает float - значение диэоектрической проницаемости
-def dielectric_from_freq(freq_p0: float, freq_pi: np.array, vi: np.array, Gamma0: float, Gamma_i: np.array, eps_inf:float, v: float):
+def dielectric_from_freq(freq_p0: float, freq_pi: np.array, vi: np.array, Gamma0: float, Gamma_i: np.array,
+                         eps_inf: float, v: float):
     # TODO: знаменатель в сумме. Там мнимая единица или номер??
-    return eps_inf*(1 - freq_p0**2/(v**2 + v*Gamma0*1j) + np.sum(freq_pi**2/(vi**2 - v**2 - v*Gamma_i*1j)))
+    return eps_inf * (1 - freq_p0 ** 2 / (v ** 2 + v * Gamma0 * 1j) + np.sum(
+        freq_pi ** 2 / (vi ** 2 - v ** 2 - v * Gamma_i * 1j)))

@@ -1,1 +1,1 @@
-# DilshodN-OpticalPropertiesOfSemiconductor
+# OpticalPropertiesOfSemiconductor
