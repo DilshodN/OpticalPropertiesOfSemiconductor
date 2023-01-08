@@ -22,6 +22,9 @@ class Graphics(enum.Enum):
 
 class GraphicSettings:
 
+    #TODO: add settings for export graphic 
+    #TODO: add setting for import graphic
+
     graphic_type: Graphics = Graphics.EXPORT
 
     __freq_max: float = 4500
@@ -69,29 +72,67 @@ class GraphicPlotter:
         return Tok_functions.dielectric_from_freq(freq_p0, freq_pi, self.variables.vi, self.variables.Gamma0,
          self.variables.Gamma_i, self.variables.eps_inf, self.__settings.get_freqs())
 
+
+    def get_N_from_freq(self):
+        return Tok_functions.N_from_freq(self.get_dielectric())
+
+    def real_part_N_from_freq(self):
+        return np.real(self.get_N_from_freq())
+
+    def imag_part_N_from_freq(self):
+        return np.imag(self.get_N_from_freq())
+
     def real_part_dielectric(self):
         return np.real(self.get_dielectric())
 
     def imag_part_dielectric(self):
         return np.imag(self.get_dielectric())
 
-    def get_plot_data_certain(settings: GraphicSettings):
-        freqs = settings.get_freqs()
-        evaluator = GraphicPlotter.__evaluators[settings.graphic_type]
-        values = evaluator(freqs)
+
+    def get_R12(self):
+        N_v = self.get_N_from_freq()
+        r12 = Tok_functions.r12(self.variables.N_air, N_v)
+        return Tok_functions.R(r12)
+
+    def get_R23(self):
+        N_v = self.get_N_from_freq()
+        r = Tok_functions.r23(self.variables.N_air, N_v)
+        return Tok_functions.R(r)
+
+    def get_alpha(self):
+        return Tok_functions.alpha_from_frea(self.__settings.get_freqs(), self.imag_part_N_from_freq())
+
+    def get_optical_Density(self):
+        return Tok_functions.optical_Density(self.get_alpha(), self.variables.d)
+
+    def get_transparency(self):
+        n_v = self.real_part_N_from_freq()
+        d = self.variables.d
+        return Tok_functions.T(self.get_R12(), self.get_R23(), self.get_alpha(), d, self.__settings.get_freqs(), Tok_functions.delta(n_v, d))
+
+    def get_optical_density_interf(self):
+        return Tok_functions.A(self.get_transparency())
+
+    def set_settings(self, settings: GraphicSettings):
+        self.__settings = settings
+
+    def get_plot_data(self):
+        freqs = self.__settings.get_freqs()
+        evaluator = GraphicPlotter.__evaluators[self.__settings.graphic_type]
+        values = evaluator(self)
         return freqs, values
 
     __evaluators: dict() = {
         Graphics.REAL_PART_DIELECTRIC: real_part_dielectric,
         Graphics.IMAG_PART_DIELECTRIC: imag_part_dielectric,
-        Graphics.REAL_PART_REFRACTION: Tok_functions.N_from_freq, # same
-        Graphics.IMAG_PART_REFLECTION: Tok_functions.N_from_freq, # same
-        Graphics.R12: Tok_functions.R,
+        Graphics.REAL_PART_REFRACTION: real_part_N_from_freq,
+        Graphics.IMAG_PART_REFLECTION: imag_part_N_from_freq,
+        Graphics.R12: get_R12,
         Graphics.PHASE_12: None,
-        Graphics.ALPHA: Tok_functions.alpha_from_frea,
-        Graphics.OPTICAL_DENS_SIMPLE: Tok_functions.optical_Density,
-        Graphics.TRANSPARENCY: Tok_functions.T,
-        Graphics.OPTICAL_DENS_HARD: Tok_functions.A,
+        Graphics.ALPHA: get_alpha,
+        Graphics.OPTICAL_DENS_SIMPLE: get_optical_Density,
+        Graphics.TRANSPARENCY: get_transparency,
+        Graphics.OPTICAL_DENS_HARD: get_transparency,
         Graphics.EXPORT: None 
         }
 

@@ -84,6 +84,7 @@ def dielectric_from_freq(freq_p0: float, freq_pi: np.array, vi: np.array, Gamma0
 
 # N(v) - показатель преломления
 # возвращает реальную и мнимую части
+# epsilon = dielectric_from_freq
 def N_from_freq(epsilon: np.array):
     N = np.sqrt(epsilon)
     return np.real(N), np.imag(N)
@@ -102,6 +103,7 @@ def optical_Density(alpha: np.array, d: float):
 
 # комплексный коэф отражения по амплитуде воздух-пленка
 # N_air - показ преломл воздуха
+# N_v - N(v) - показ преломления
 def r12(N_air: np.complex64, N_v: np.array):
     up = -N_v.copy() + N_air 
     down = N_air + N_v.copy()
