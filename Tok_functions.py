@@ -142,4 +142,9 @@ def A(T: np.array):
     return -np.log(T)
 
 
-
+def normalize(values: np.array):
+    up = (values - np.min(values))
+    down = (np.max(values) - np.min(values))
+    if down == 0:
+        return values
+    return up / down 

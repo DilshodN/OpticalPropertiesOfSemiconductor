@@ -2,7 +2,7 @@ import numpy as np
 from constants import Constants
 import enum
 import Tok_functions
-import parser
+import ASCIIparser
 
 class Graphics(enum.Enum):
 
@@ -127,19 +127,23 @@ class GraphicPlotter:
 
     def get_import_data(self):
         pth = self.__settings._import_path
-        return parser.parseASCII(pth)
+        return ASCIIparser.parseASCII(pth)
 
     def set_settings(self, settings: GraphicSettings):
         self.__settings = settings
 
-    def get_plot_data(self):
+    def get_plot_data(self, normalize: bool = False):
 
         if (self.__settings.graphic_type == Graphics.EXPORT):
-            return self.get_import_data()
+            freqs, values =  self.get_import_data()
+        else:
+            freqs = self.__settings.get_freqs()
+            evaluator = GraphicPlotter.__evaluators[self.__settings.graphic_type]
+            values = evaluator(self)
 
-        freqs = self.__settings.get_freqs()
-        evaluator = GraphicPlotter.__evaluators[self.__settings.graphic_type]
-        values = evaluator(self)
+        if normalize:
+            values = Tok_functions.normalize(values)
+            
         return freqs, values
 
     __evaluators: dict() = {
