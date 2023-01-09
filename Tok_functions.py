@@ -2,12 +2,57 @@ import numpy as np
 from constants import Constants
 
 
-# Все функции считают в СИ, однако пользователь задает величины фиг знает в чем, нужно сперва их все перевести
+# TODO: импорт Nm из файла с зависимостью от частоты + поддержка этой фичи в коде
+
+# параметры в СГС
+class InputVariables:
+    #### Input ####
+
+    N0: float = 1e10  # концентрация свободных носителей заряда
+
+    m: float = 1  # масса свободных носителей заряда в массах свободного электрона
+
+    Gamma0: float = 30  # затухание колебаний свободного заряда
+
+    eps_inf: float = 2  # диэлектрическая проницаемость для частот много больше фотонных
+
+    freq_max: float = 4500  # макс частота
+
+    freq_min: float = 100
+
+    # n: int = 100 # количество точек
+
+    K: int = 2  # количество мод связанных зарядов
+
+    d: float = 100 * 1e-7  # толщина плёнки d (в сантиметрах). ВАЖО: ПОЛЬЗОВАТЕЛЬ ВВОДИТ В НАНОМЕТРАХ. УМНОЖАЕМ ВВОД НА 1E-7
+
+    Nm: np.complex64 = 1 + 0j  # комплексный показатель преломления среды за плёнкой
+
+    N_air: np.complex64 = 1 + 0j  # комплексный показатель преломления воздуха
+
+    Ni: np.array = np.zeros(K)  # концентрация свободных носителей заряда
+
+    mi: np.array = np.ones(
+        K)  # масса связанного носителя заряда. ВАЖНО: ПОЛЬЗОВАТЕЛЬ ЗАДАЕТ В А.Е.М. НУЖНО ДОМНОЖИТЬ ВВОД НА 1.66E-24
+
+    ei: np.array = np.ones(
+        K)  # эффективный заряд в зарядах электрона. ВАЖНО: ПОЛЬЗОВАТЕЛЬ ЗАДАЕТ В ГОВНЕ. НУЖНО ДОМНОЖИТЬ ВВОД НА 4.8E-10
+
+    vi: np.array = np.ones(K) * 1100  # частота колебаний связанного заряда (в обратных сантиметрах)
+
+    Gamma_i: np.array = np.ones(K) * 30  # затухание колебаний связанного заряда (в обратных сантиметрах)
+
+
+# Все функции считают в СГС, однако пользователь задает величины фиг знает в чем, нужно сперва их все перевести
+
+def init_freq(n: int):
+    pass
+
 
 # Плазменная частота свободных колебаний
-# возвращает float - частоту в СИ (TODO: нужно перевести в обратные сантиметры)
+# возвращает float - частоту в СГС (TODO: нужно перевести в обратные сантиметры)
 # принимаемые величины задаются пользователем
-# N0 - концентрация свободных носителей заряда, в СИ. Пользователь задает в СГС (может нафиг СИ??)
+# N0 - концентрация свободных носителей заряда, в СГС.
 # eps_inf - диэлектрическая проницаемость для частот много больше фотонных
 def plasma_freq_of_free_oscillations(N0: float, eps_inf: float):
     return Constants.e / (2 * np.pi * Constants.c) * np.sqrt(4 * np.pi * N0 / (Constants.m0 * eps_inf))
@@ -40,3 +85,65 @@ def dielectric_from_freq(freq_p0: float, freq_pi: np.array, vi: np.array, Gamma0
     # TODO: знаменатель в сумме. Там мнимая единица или номер??
     return eps_inf * (1 - freq_p0 ** 2 / (v ** 2 + v * Gamma0 * 1j) + np.sum(
         freq_pi ** 2 / (vi ** 2 - v ** 2 - v * Gamma_i * 1j)))
+
+
+# N(v) - показатель преломления
+# возвращает реальную и мнимую части
+# epsilon = dielectric_from_freq
+def N_from_freq(epsilon: np.array):
+    N = np.sqrt(epsilon)
+    return np.real(N), np.imag(N)
+
+
+# коэффициент поглощения
+# v - частоты
+# k - мнимая часть N(v)
+def alpha_from_frea(v: np.array, k: np.array):
+    return 4 * np.pi * v * k
+
+
+# оптическая плотность пленки
+# d -толщина пленки
+def optical_Density(alpha: np.array, d: float):
+    return alpha * d
+
+
+# комплексный коэф отражения по амплитуде воздух-пленка
+# N_air - показ преломл воздуха
+# N_v - N(v) - показ преломления
+def r12(N_air: np.complex64, N_v: np.array):
+    up = -N_v.copy() + N_air
+    down = N_air + N_v.copy()
+    return up / down
+
+
+# компл коэф отр по ампл пленка - среда
+# N_m - показ преломл среды
+def r23(N_v: np.array, N_m: float):
+    up = N_v.copy() - N_m
+    down = N_v.copy() + N_m
+    return up / down
+
+
+# коэф отраж по интенсивнойсти
+def R(r: np.array):
+    # return np.abs(r)**2
+    return r * np.conj(r)
+
+
+# набег фазы
+def delta(n_v: np.array, d: float):
+    return 2 * d * n_v
+
+
+# пропускание пленки
+def T(R12: np.array, R23: np.array, alpha: np.array, d: float, v: np.array, delta: np.array):
+    up = (1 - R12) * (1 - R23) * np.exp(-alpha * d)
+    down_1 = 1 + R12 * R23
+    down_2 = 2 * np.sqrt(R12 * R23) * np.exp(-2 * alpha * d) * np.cos(delta * v)
+    return up / (down_1 + down_2)
+
+
+# оптическая плотность пленки с учетом интерференции
+def A(T: np.array):
+    return -np.log(T)

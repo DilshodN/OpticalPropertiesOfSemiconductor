@@ -7,3 +7,5 @@ x, y = parseASCII('./testdata/SiO2.ascii')
 plt.plot(x, y)
 
 plt.show()
+
+print("FOME HUITA")
