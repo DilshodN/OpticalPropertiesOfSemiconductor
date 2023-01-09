@@ -59,8 +59,8 @@ class InputVariables:
 # принимаемые величины задаются пользователем
 # N0 - концентрация свободных носителей заряда, в СГС.
 # eps_inf - диэлектрическая проницаемость для частот много больше фотонных
-def plasma_freq_of_free_oscillations(N0: float, eps_inf: float):
-    return Constants.e/(2*np.pi*Constants.c)*np.sqrt(4*np.pi*N0/(Constants.m0*eps_inf))
+def plasma_freq_of_free_oscillations(N0: float, eps_inf: float, m: float):
+    return Constants.e/(2*np.pi*Constants.c)*np.sqrt(4*np.pi*N0/(m*eps_inf))
 
 # все плазменные частоты для связных зарядов
 # все принимаемые величины задаются пользователем

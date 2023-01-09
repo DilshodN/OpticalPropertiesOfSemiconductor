@@ -85,8 +85,8 @@ class GraphicPlotter:
         self.variables = input
 
     def get_dielectric(self):
-        freq_p0 = Tok_functions.plasma_freq_of_free_oscillations(self.variables.N0, self.variables.eps_inf)
-        freq_pi = Tok_functions.plasma_freq_of_connected_charges(self.variables.ei, self.variables.Ni, self.variables.mi, self.variables.eps_inf)
+        freq_p0 = Tok_functions.plasma_freq_of_free_oscillations(self.variables.N0, self.variables.eps_inf, self.variables.get_m())
+        freq_pi = Tok_functions.plasma_freq_of_connected_charges(self.variables.get_ei(), self.variables.Ni, self.variables.get_mi(), self.variables.eps_inf)
         return Tok_functions.dielectric_from_freq(freq_p0, freq_pi, self.variables.vi, self.variables.Gamma0,
          self.variables.Gamma_i, self.variables.eps_inf, self.__settings.get_freqs())
 
@@ -124,11 +124,11 @@ class GraphicPlotter:
         return Tok_functions.alpha_from_freq(self.__settings.get_freqs(), self.imag_part_N_from_freq())
 
     def get_optical_Density(self):
-        return Tok_functions.optical_Density(self.get_alpha(), self.variables.d)
+        return Tok_functions.optical_Density(self.get_alpha(), self.variables.get_d())
 
     def get_transparency(self):
         n_v = self.real_part_N_from_freq()
-        d = self.variables.d
+        d = self.variables.get_d()
         return Tok_functions.T(self.get_R12(), self.get_R23(), self.get_alpha(), d, self.__settings.get_freqs(), Tok_functions.delta(n_v, d))
 
     def get_optical_density_interf(self):
