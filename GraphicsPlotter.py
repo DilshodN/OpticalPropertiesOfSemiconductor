@@ -4,6 +4,7 @@ import enum
 import Tok_functions
 import ASCIIparser
 
+
 class Graphics(enum.Enum):
 
     REAL_PART_DIELECTRIC = 0
@@ -18,8 +19,19 @@ class Graphics(enum.Enum):
     OPTICAL_DENS_HARD = 9
     EXPORT = 10
 
+
     pass
 
+
+
+# GraphicYLabels = {
+#     Graphics.REAL_PART_DIELECTRIC: "eps",
+#     Graphics.IMAG_PART_DIELECTRIC: "",
+#     Graphics.REAL_PART_REFRACTION: "",
+#     Graphics.IMAG_PART_REFLECTION: "",
+#     Graphics.R12: "",
+
+# }
 
 class GraphicSettings:
 
@@ -143,7 +155,7 @@ class GraphicPlotter:
 
         if normalize:
             values = Tok_functions.normalize(values)
-            
+
         return freqs, values
 
     __evaluators: dict() = {

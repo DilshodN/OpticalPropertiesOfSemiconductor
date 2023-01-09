@@ -24,7 +24,7 @@ class InputVariables:
 
     K: int = 2 # количество мод связанных зарядов
 
-    d: float = 100*1e-7 # толщина плёнки d (в сантиметрах). ВАЖО: ПОЛЬЗОВАТЕЛЬ ВВОДИТ В НАНОМЕТРАХ. УМНОЖАЕМ ВВОД НА 1E-7
+    d: float = 100 # толщина плёнки d (в сантиметрах). ВАЖО: ПОЛЬЗОВАТЕЛЬ ВВОДИТ В НАНОМЕТРАХ. УМНОЖАЕМ ВВОД НА 1E-7
 
     Nm: np.complex64 = 1 + 0j # комплексный показатель преломления среды за плёнкой
 
@@ -40,13 +40,19 @@ class InputVariables:
 
     Gamma_i: np.array = np.ones(K)*30 # затухание колебаний связанного заряда (в обратных сантиметрах)
 
+    def get_d(self):
+        return self.d*1e-7
     
-
+    def get_m(self):
+        return self.m*Constants.m0
+    
+    def get_mi(self):
+        return self.mi*1.66*1e-24
+        
+    def get_ei(self):
+        return self.ei*4.8*1e-10
 
 # Все функции считают в СГС, однако пользователь задает величины фиг знает в чем, нужно сперва их все перевести
-
-def init_freq(n: int):
-    pass
 
 # Плазменная частота свободных колебаний
 # возвращает float - частоту в СГС (TODO: нужно перевести в обратные сантиметры)
@@ -146,5 +152,5 @@ def normalize(values: np.array):
     up = (values - np.min(values))
     down = (np.max(values) - np.min(values))
     if down == 0:
-        return values
+        return values/np.max(values)
     return up / down 
