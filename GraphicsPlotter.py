@@ -2,6 +2,7 @@ import numpy as np
 from constants import Constants
 import enum
 import Tok_functions
+import parser
 
 class Graphics(enum.Enum):
 
@@ -27,6 +28,8 @@ class GraphicSettings:
 
     graphic_type: Graphics = Graphics.EXPORT
 
+    _import_path: str = "testdata\SiO2.ascii"
+
     __freq_max: float = 4500
     __freq_min: float = 100
     # __sample_count: int = 500
@@ -51,6 +54,9 @@ class GraphicSettings:
     
     def get_freqs(self):
         return self._freqs
+
+    def set_import_path(self, pth: str):
+        self._import_path = pth
 
     pass
 
@@ -88,10 +94,13 @@ class GraphicPlotter:
     def imag_part_dielectric(self):
         return np.imag(self.get_dielectric())
 
-
-    def get_R12(self):
+    def get_r12(self):
         N_v = self.get_N_from_freq()
         r12 = Tok_functions.r12(self.variables.N_air, N_v)
+        return r12
+
+    def get_R12(self):
+        r12 = self.get_r12()
         return Tok_functions.R(r12)
 
     def get_R23(self):
@@ -100,7 +109,7 @@ class GraphicPlotter:
         return Tok_functions.R(r)
 
     def get_alpha(self):
-        return Tok_functions.alpha_from_frea(self.__settings.get_freqs(), self.imag_part_N_from_freq())
+        return Tok_functions.alpha_from_freq(self.__settings.get_freqs(), self.imag_part_N_from_freq())
 
     def get_optical_Density(self):
         return Tok_functions.optical_Density(self.get_alpha(), self.variables.d)
@@ -113,10 +122,21 @@ class GraphicPlotter:
     def get_optical_density_interf(self):
         return Tok_functions.A(self.get_transparency())
 
+    def get_phase_12(self):
+        return np.angle(self.get_r12())
+
+    def get_import_data(self):
+        pth = self.__settings._import_path
+        return parser.parseASCII(pth)
+
     def set_settings(self, settings: GraphicSettings):
         self.__settings = settings
 
     def get_plot_data(self):
+
+        if (self.__settings.graphic_type == Graphics.EXPORT):
+            return self.get_import_data()
+
         freqs = self.__settings.get_freqs()
         evaluator = GraphicPlotter.__evaluators[self.__settings.graphic_type]
         values = evaluator(self)
@@ -128,7 +148,7 @@ class GraphicPlotter:
         Graphics.REAL_PART_REFRACTION: real_part_N_from_freq,
         Graphics.IMAG_PART_REFLECTION: imag_part_N_from_freq,
         Graphics.R12: get_R12,
-        Graphics.PHASE_12: None,
+        Graphics.PHASE_12: get_phase_12,
         Graphics.ALPHA: get_alpha,
         Graphics.OPTICAL_DENS_SIMPLE: get_optical_Density,
         Graphics.TRANSPARENCY: get_transparency,
