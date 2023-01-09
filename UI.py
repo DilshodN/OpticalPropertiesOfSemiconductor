@@ -28,7 +28,7 @@ class MainWindow(QtWidgets.QMainWindow):
         super(MainWindow, self).__init__(*args, **kwargs)
 
         # Load the UI Page
-        uic.loadUi("../qtui/mainWindow.ui", self)
+        uic.loadUi('./qtUI/mainWindow.ui', self)
 
         self.plot([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [30, 32, 34, 32, 33, 31, 29, 32, 35, 45])
 
