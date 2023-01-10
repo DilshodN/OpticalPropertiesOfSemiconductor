@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1280</width>
-    <height>800</height>
+    <height>690</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -16,6 +16,12 @@
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>1280</width>
+    <height>0</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -23,8 +29,8 @@
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>720</y>
+      <x>0</x>
+      <y>600</y>
       <width>761</width>
       <height>61</height>
      </rect>
@@ -71,8 +77,8 @@
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>810</x>
-      <y>110</y>
+      <x>790</x>
+      <y>40</y>
       <width>431</width>
       <height>311</height>
      </rect>
@@ -215,8 +221,8 @@
    <widget class="QWidget" name="verticalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>1240</x>
-      <y>110</y>
+      <x>1220</x>
+      <y>40</y>
       <width>21</width>
       <height>311</height>
      </rect>
@@ -304,8 +310,8 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>810</x>
-      <y>80</y>
+      <x>790</x>
+      <y>10</y>
       <width>251</width>
       <height>20</height>
      </rect>
@@ -322,8 +328,8 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>1170</x>
-      <y>80</y>
+      <x>1150</x>
+      <y>10</y>
       <width>91</width>
       <height>20</height>
      </rect>
@@ -340,8 +346,8 @@
    <widget class="QWidget" name="formLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>790</x>
-      <y>430</y>
+      <x>770</x>
+      <y>360</y>
       <width>201</width>
       <height>211</height>
      </rect>
@@ -461,8 +467,8 @@
    <widget class="QWidget" name="verticalLayoutWidget_3">
     <property name="geometry">
      <rect>
-      <x>1000</x>
-      <y>430</y>
+      <x>980</x>
+      <y>360</y>
       <width>281</width>
       <height>211</height>
      </rect>
@@ -557,31 +563,13 @@
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>780</x>
-      <y>670</y>
+      <x>770</x>
+      <y>580</y>
       <width>491</width>
-      <height>81</height>
+      <height>21</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="1">
-      <widget class="QTextEdit" name="minFreqTextEdit"/>
-     </item>
-     <item row="0" column="3">
-      <widget class="QTextEdit" name="maxFreqTextEdit"/>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_10">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Пределы частот:</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="2">
       <widget class="QLabel" name="label_11">
        <property name="font">
@@ -606,13 +594,31 @@
        </property>
       </widget>
      </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_10">
+       <property name="font">
+        <font>
+         <family>Helvetica</family>
+        </font>
+       </property>
+       <property name="text">
+        <string>Пределы частот:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QTextEdit" name="maxFreqTextEdit"/>
+     </item>
+     <item row="0" column="1">
+      <widget class="QTextEdit" name="minFreqTextEdit"/>
+     </item>
     </layout>
    </widget>
    <widget class="QLabel" name="label_13">
     <property name="geometry">
      <rect>
-      <x>860</x>
-      <y>760</y>
+      <x>850</x>
+      <y>650</y>
       <width>411</width>
       <height>21</height>
      </rect>
@@ -630,10 +636,10 @@
    <widget class="QWidget" name="gridLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>50</y>
+      <x>10</x>
+      <y>10</y>
       <width>751</width>
-      <height>611</height>
+      <height>551</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="matplotlibLayout">
@@ -645,8 +651,8 @@
    <widget class="QWidget" name="verticalLayoutWidget_4">
     <property name="geometry">
      <rect>
-      <x>790</x>
-      <y>110</y>
+      <x>770</x>
+      <y>40</y>
       <width>21</width>
       <height>311</height>
      </rect>
@@ -734,8 +740,8 @@
    <widget class="QPushButton" name="confirmSettingsBtn">
     <property name="geometry">
      <rect>
-      <x>990</x>
-      <y>710</y>
+      <x>970</x>
+      <y>610</y>
       <width>113</width>
       <height>32</height>
      </rect>
@@ -747,9 +753,9 @@
    <widget class="QPushButton" name="axesNorm">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>670</y>
-      <width>113</width>
+      <x>280</x>
+      <y>570</y>
+      <width>221</width>
       <height>32</height>
      </rect>
     </property>

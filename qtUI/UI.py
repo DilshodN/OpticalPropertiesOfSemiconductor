@@ -38,32 +38,29 @@ class Ui_MainWindow(object):
                                  5: None, 6: None, 7: None, 8: None,
                                  9: None, 10: None, 11: None}
 
-        self.minsDict = {1: None, 2: None, 3: None, 4: None,
-                         5: None, 6: None, 7: None, 8: None,
-                         9: None, 10: None, 11: None}
-
-        self.maxsDict = {1: None, 2: None, 3: None, 4: None,
-                         5: None, 6: None, 7: None, 8: None,
-                         9: None, 10: None, 11: None}
-
         self.settings = Tok_functions.InputVariables()
 
         self.plotter = GraphicPlotter(self.settings)
 
         self.imported = False
 
-        self.globalMin = 1e+30
-        self.globalMax = 1e-30
-
         self.updateDataGraphs()
 
     def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.setWindowState(QtCore.Qt.WindowState.WindowFullScreen)
+        MainWindow.setObjectName("Оптические свойства полупроводника")
+
+        MainWindow.resize(1280, 690)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
+        MainWindow.setSizePolicy(sizePolicy)
+        MainWindow.setMinimumSize(QtCore.QSize(1280, 690))
+
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(20, 720, 761, 61))
+        # self.horizontalLayoutWidget.setGeometry(QtCore.QRect(20, 720, 761, 61))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
@@ -87,7 +84,7 @@ class Ui_MainWindow(object):
         self.exportBtn.setObjectName("exportBtn")
         self.horizontalLayout.addWidget(self.exportBtn)
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(810, 110, 431, 311))
+        # self.verticalLayoutWidget.setGeometry(QtCore.QRect(810, 110, 431, 311))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -159,7 +156,7 @@ class Ui_MainWindow(object):
         self.checkBox_11.setObjectName("checkBox_11")
         self.verticalLayout.addWidget(self.checkBox_11)
         self.verticalLayoutWidget_2 = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(1240, 110, 21, 311))
+        # self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(1240, 110, 21, 311))
         self.verticalLayoutWidget_2.setObjectName("verticalLayoutWidget_2")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_2)
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -209,19 +206,19 @@ class Ui_MainWindow(object):
         self.checkBox_norm_11.setObjectName("checkBox_norm_11")
         self.verticalLayout_2.addWidget(self.checkBox_norm_11)
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(810, 80, 251, 20))
+        # self.label.setGeometry(QtCore.QRect(810, 80, 251, 20))
         font = QtGui.QFont()
         font.setFamily("Helvetica")
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(1170, 80, 91, 20))
+        # self.label_2.setGeometry(QtCore.QRect(1170, 80, 91, 20))
         font = QtGui.QFont()
         font.setFamily("Helvetica")
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
         self.formLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.formLayoutWidget.setGeometry(QtCore.QRect(790, 430, 201, 211))
+        # self.formLayoutWidget.setGeometry(QtCore.QRect(790, 430, 201, 211))
         self.formLayoutWidget.setObjectName("formLayoutWidget")
         self.formLayout = QtWidgets.QFormLayout(self.formLayoutWidget)
         self.formLayout.setContentsMargins(0, 0, 0, 0)
@@ -299,7 +296,7 @@ class Ui_MainWindow(object):
         self.kLineEdit.setObjectName("kLineEdit")
         self.formLayout.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.kLineEdit)
         self.verticalLayoutWidget_3 = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget_3.setGeometry(QtCore.QRect(1000, 430, 281, 211))
+        # self.verticalLayoutWidget_3.setGeometry(QtCore.QRect(1000, 430, 281, 211))
         self.verticalLayoutWidget_3.setObjectName("verticalLayoutWidget_3")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_3)
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
@@ -347,7 +344,7 @@ class Ui_MainWindow(object):
         self.label_9.setObjectName("label_9")
         self.verticalLayout_3.addWidget(self.label_9)
         self.gridLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.gridLayoutWidget.setGeometry(QtCore.QRect(780, 670, 491, 31))
+        # self.gridLayoutWidget.setGeometry(QtCore.QRect(780, 670, 491, 31))
         self.gridLayoutWidget.setObjectName("gridLayoutWidget")
         self.gridLayout = QtWidgets.QGridLayout(self.gridLayoutWidget)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
@@ -383,14 +380,14 @@ class Ui_MainWindow(object):
         self.label_12.setObjectName("label_12")
         self.gridLayout.addWidget(self.label_12, 0, 4, 1, 1)
         self.label_13 = QtWidgets.QLabel(self.centralwidget)
-        self.label_13.setGeometry(QtCore.QRect(860, 760, 411, 21))
+        # self.label_13.setGeometry(QtCore.QRect(860, 760, 411, 21))
         font = QtGui.QFont()
         font.setFamily("PT Mono")
         font.setPointSize(18)
         self.label_13.setFont(font)
         self.label_13.setObjectName("label_13")
         self.gridLayoutWidget_2 = QtWidgets.QWidget(self.centralwidget)
-        self.gridLayoutWidget_2.setGeometry(QtCore.QRect(30, 50, 751, 611))
+        # self.gridLayoutWidget_2.setGeometry(QtCore.QRect(30, 50, 751, 611))
         self.gridLayoutWidget_2.setObjectName("gridLayoutWidget_2")
         self.matplotlibLayout = QtWidgets.QGridLayout(self.gridLayoutWidget_2)
         self.matplotlibLayout.setContentsMargins(0, 0, 0, 0)
@@ -399,7 +396,7 @@ class Ui_MainWindow(object):
         self.MatplotlibWidget.setObjectName("MatplotlibWidget")
         self.matplotlibLayout.addWidget(self.MatplotlibWidget, 0, 0, 1, 1)
         self.verticalLayoutWidget_4 = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget_4.setGeometry(QtCore.QRect(790, 110, 21, 311))
+        # self.verticalLayoutWidget_4.setGeometry(QtCore.QRect(790, 110, 21, 311))
         self.verticalLayoutWidget_4.setObjectName("verticalLayoutWidget_4")
         self.enumLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_4)
         self.enumLayout.setContentsMargins(0, 0, 0, 0)
@@ -439,11 +436,26 @@ class Ui_MainWindow(object):
         self.enumLayout.addWidget(self.label_num11)
 
         self.confirmSettingsBtn = QtWidgets.QPushButton(self.centralwidget)
-        self.confirmSettingsBtn.setGeometry(QtCore.QRect(990, 710, 113, 32))
+        # self.confirmSettingsBtn.setGeometry(QtCore.QRect(990, 710, 113, 32))
         self.confirmSettingsBtn.setObjectName("confirmSettingsBtn")
 
         self.axesNorm = QtWidgets.QPushButton(self.centralwidget)
-        self.axesNorm.setGeometry(QtCore.QRect(340, 670, 113, 32))
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(0, 600, 761, 61))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(790, 40, 431, 311))
+
+        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(1220, 40, 21, 311))
+        self.label.setGeometry(QtCore.QRect(790, 10, 251, 20))
+        self.label_2.setGeometry(QtCore.QRect(1150, 10, 91, 20))
+        self.formLayoutWidget.setGeometry(QtCore.QRect(770, 360, 201, 211))
+        self.verticalLayoutWidget_3.setGeometry(QtCore.QRect(980, 360, 281, 211))
+        self.gridLayoutWidget.setGeometry(QtCore.QRect(770, 580, 491, 21))
+        self.label_13.setGeometry(QtCore.QRect(850, 650, 411, 21))
+        self.gridLayoutWidget_2.setGeometry(QtCore.QRect(10, 10, 751, 551))
+        self.verticalLayoutWidget_4.setGeometry(QtCore.QRect(770, 40, 21, 311))
+        self.confirmSettingsBtn.setGeometry(QtCore.QRect(970, 610, 113, 32))
+        self.axesNorm.setGeometry(QtCore.QRect(280, 570, 221, 32))
+
+        # self.axesNorm.setGeometry(QtCore.QRect(340, 670, 113, 32))
         self.axesNorm.setObjectName("axesNorm")
 
         MainWindow.setCentralWidget(self.centralwidget)
@@ -549,42 +561,44 @@ class Ui_MainWindow(object):
         self.exportBtn.clicked.connect(self.exportBtnHandler)
         self.axesNorm.clicked.connect(self.normAxesBtnHandler)
 
-    # def updateMinsMaxs(self):
-    #     mins, maxs = Tok_functions.get_mins_maxes(self.dataDict)
-    #     Tok_functions.set_mins_maxes_dict(self.minsDict, self.maxsDict, mins, maxs)
-    #     self.globalMin, self.globalMax = 1e+30, 1e-30
+        self.MatplotlibWidget.canvas.axes.grid()
+        self.MatplotlibWidget.canvas.axes.set_xlabel("Частота [см^-1]")
 
     def updateDataGraphs(self):
         self.plotter.set_settings(self.settings)
         for i in range(10):
             self.dataDict[i + 1] = self.plotter.get_plot_data(listOfTypes[i])
             self.dataNormDict[i + 1] = self.plotter.get_plot_data(listOfTypes[i], True)
-        # self.updateMinsMaxs()
 
     def updateGraphs(self):
-        self.checkBox_10.toggle()
-        self.checkBox_10.toggle()
-        # self.MatplotlibWidget.canvas.draw_idle()()
-        # for i in range(1, 11):
-        #     if self.graphicsDict[i] is not None:
-        #         self.removePlot(i)
-        #         self.plot(*(self.dataDict[i]), i)
-        #
-        #     if self.graphicsNormDict[i] is not None:
-        #         self.removeNormPlot(i)
-        #         self.plotNorm(*(self.dataNormDict[i]), i)
+        for i in range(1, 11):
+            if self.graphicsDict[i] is not None:
+                self.removePlot(i)
+                self.plot(*(self.dataDict[i]), i)
+
+            if self.graphicsNormDict[i] is not None:
+                self.removeNormPlot(i)
+                self.plotNorm(*(self.dataNormDict[i]), i)
+        self.MatplotlibWidget.canvas.draw()
 
     def plot(self, x, y, label):
         graphDetails = self.MatplotlibWidget.canvas.axes.plot(x, y, label=label)
+
         self.MatplotlibWidget.canvas.axes.legend()
-        self.MatplotlibWidget.canvas.draw_idle()
+
+        self.MatplotlibWidget.canvas.draw()
 
         self.graphicsDict[label] = graphDetails
 
     def plotNorm(self, x, y, label):
         graphDetails = self.MatplotlibWidget.canvas.axes.plot(x, y, label=str(label) + " norm")
-        self.MatplotlibWidget.canvas.draw_idle()
+
         self.MatplotlibWidget.canvas.axes.set_ylim([0, 1])
+
+        self.MatplotlibWidget.canvas.axes.legend()
+
+        self.MatplotlibWidget.canvas.draw()
+
         self.graphicsNormDict[label] = graphDetails
 
     def removePlot(self, idx):
@@ -592,7 +606,10 @@ class Ui_MainWindow(object):
             return
         line = self.graphicsDict[idx].pop(0)
         line.remove()
-        self.MatplotlibWidget.canvas.draw_idle()
+
+        self.MatplotlibWidget.canvas.axes.legend()
+
+        self.MatplotlibWidget.canvas.draw()
         self.graphicsDict[idx] = None
 
     def removeNormPlot(self, idx):
@@ -600,7 +617,10 @@ class Ui_MainWindow(object):
             return
         line = self.graphicsNormDict[idx].pop(0)
         line.remove()
-        self.MatplotlibWidget.canvas.draw_idle()
+
+        self.MatplotlibWidget.canvas.axes.legend()
+
+        self.MatplotlibWidget.canvas.draw()
         self.graphicsNormDict[idx] = None
 
     def writeDataToDict(self, data, idx):
@@ -878,6 +898,7 @@ class Ui_MainWindow(object):
                 break
             except TypeError:
                 break
+        self.updateGraphs()
 
     def confirmSettingsBtnHandler(self):
         try:
@@ -914,11 +935,14 @@ class Ui_MainWindow(object):
 
             self.settings.freq_min = float(self.minFreqTextEdit.toPlainText())
 
-            self.settings.freq_min = float(self.maxFreqTextEdit.toPlainText())
+            self.settings.freq_max = float(self.maxFreqTextEdit.toPlainText())
 
             self.updateDataGraphs()
 
             self.updateGraphs()
+            self.MatplotlibWidget.canvas.draw()
+
+            self.normAxesBtnHandler()
         except ValueError:
             self.errorMessage("Invalid Input")
 
@@ -973,13 +997,13 @@ class Ui_MainWindow(object):
         if any(self.graphicsNormDict.values()):
             gmin = gmin if gmin < 0 else 0
             gmax = gmax if gmax > 1 else 1
-        if gmin == gmax:
+        if abs(gmin - gmax) < 1e-7:
             delta = 0.1 * gmin
             gmin = gmin - delta
             gmax = gmax + delta
-        print(gmax, gmin)
-        self.MatplotlibWidget.canvas.draw_idle()
-        self.MatplotlibWidget.canvas.axes.set_ylim([1.1 * gmin, 1.1 * gmax])
+        delta = gmax - gmin
+        self.MatplotlibWidget.canvas.axes.set_ylim([gmin - delta * 0.1, gmax + delta * 0.1])
+        self.MatplotlibWidget.canvas.draw()
 
     def errorMessage(self, text='Error'):
         error_dialog = QtWidgets.QErrorMessage(self.centralwidget)

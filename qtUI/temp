@@ -1,40 +1,14 @@
-(checkboxHandler1)
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(0, 600, 761, 61))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(790, 40, 431, 311))
 
-(checkboxHandler2)
-
-(checkboxHandler3)
-
-(checkboxHandler4)
-
-(checkboxHandler5)
-
-(checkboxHandler6)
-
-(checkboxHandler7)
-
-(checkboxHandler8)
-
-(checkboxHandler9)
-
-(checkboxHandler10)
-(checkboxHandler11)
-(checkboxHandler1)
-
-(checkboxHandler2)
-
-(checkboxHandler3)
-
-(checkboxHandler4)
-
-(checkboxHandler5)
-
-(checkboxHandler6)
-
-(checkboxHandler7)
-
-(checkboxHandler8)
-
-(checkboxHandler9)
-
-(checkboxHandler10)
-(checkboxHandler11)
+        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(1220, 40, 21, 311))
+        self.label.setGeometry(QtCore.QRect(790, 10, 251, 20))
+        self.label_2.setGeometry(QtCore.QRect(1150, 10, 91, 20))
+        self.formLayoutWidget.setGeometry(QtCore.QRect(770, 360, 201, 211))
+        self.verticalLayoutWidget_3.setGeometry(QtCore.QRect(980, 360, 281, 211))
+        self.gridLayoutWidget.setGeometry(QtCore.QRect(770, 580, 491, 21))
+        self.label_13.setGeometry(QtCore.QRect(850, 650, 411, 21))
+        self.gridLayoutWidget_2.setGeometry(QtCore.QRect(10, 10, 751, 551))
+        self.verticalLayoutWidget_4.setGeometry(QtCore.QRect(770, 40, 21, 311))
+        self.confirmSettingsBtn.setGeometry(QtCore.QRect(970, 610, 113, 32))
+        self.axesNorm.setGeometry(QtCore.QRect(280, 570, 221, 32))
