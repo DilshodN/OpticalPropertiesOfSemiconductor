@@ -2,6 +2,7 @@ import numpy as np
 from constants import Constants
 import enum
 import Tok_functions
+import ASCIIparser
 
 
 class Graphics(enum.Enum):
@@ -20,11 +21,22 @@ class Graphics(enum.Enum):
     pass
 
 
+# GraphicYLabels = {
+#     Graphics.REAL_PART_DIELECTRIC: "eps",
+#     Graphics.IMAG_PART_DIELECTRIC: "",
+#     Graphics.REAL_PART_REFRACTION: "",
+#     Graphics.IMAG_PART_REFLECTION: "",
+#     Graphics.R12: "",
+
+# }
+
 class GraphicSettings:
     # TODO: add settings for export graphic
     # TODO: add setting for import graphic
 
     graphic_type: Graphics = Graphics.EXPORT
+
+    _import_path: str = "testdata\SiO2.ascii"
 
     __freq_max: float = 4500
     __freq_min: float = 100
@@ -50,6 +62,9 @@ class GraphicSettings:
     def get_freqs(self):
         return self._freqs
 
+    def set_import_path(self, pth: str):
+        self._import_path = pth
+
     pass
 
 
@@ -62,9 +77,10 @@ class GraphicPlotter:
         self.variables = input
 
     def get_dielectric(self):
-        freq_p0 = Tok_functions.plasma_freq_of_free_oscillations(self.variables.N0, self.variables.eps_inf)
-        freq_pi = Tok_functions.plasma_freq_of_connected_charges(self.variables.ei, self.variables.Ni,
-                                                                 self.variables.mi, self.variables.eps_inf)
+        freq_p0 = Tok_functions.plasma_freq_of_free_oscillations(self.variables.N0, self.variables.eps_inf,
+                                                                 self.variables.get_m())
+        freq_pi = Tok_functions.plasma_freq_of_connected_charges(self.variables.get_ei(), self.variables.Ni,
+                                                                 self.variables.get_mi(), self.variables.eps_inf)
         return Tok_functions.dielectric_from_freq(freq_p0, freq_pi, self.variables.vi, self.variables.Gamma0,
                                                   self.variables.Gamma_i, self.variables.eps_inf,
                                                   self.__settings.get_freqs())
@@ -84,9 +100,13 @@ class GraphicPlotter:
     def imag_part_dielectric(self):
         return np.imag(self.get_dielectric())
 
-    def get_R12(self):
+    def get_r12(self):
         N_v = self.get_N_from_freq()
         r12 = Tok_functions.r12(self.variables.N_air, N_v)
+        return r12
+
+    def get_R12(self):
+        r12 = self.get_r12()
         return Tok_functions.R(r12)
 
     def get_R23(self):
@@ -95,27 +115,42 @@ class GraphicPlotter:
         return Tok_functions.R(r)
 
     def get_alpha(self):
-        return Tok_functions.alpha_from_frea(self.__settings.get_freqs(), self.imag_part_N_from_freq())
+        return Tok_functions.alpha_from_freq(self.__settings.get_freqs(), self.imag_part_N_from_freq())
 
     def get_optical_Density(self):
-        return Tok_functions.optical_Density(self.get_alpha(), self.variables.d)
+        return Tok_functions.optical_Density(self.get_alpha(), self.variables.get_d())
 
     def get_transparency(self):
         n_v = self.real_part_N_from_freq()
-        d = self.variables.d
+        d = self.variables.get_d()
         return Tok_functions.T(self.get_R12(), self.get_R23(), self.get_alpha(), d, self.__settings.get_freqs(),
                                Tok_functions.delta(n_v, d))
 
     def get_optical_density_interf(self):
         return Tok_functions.A(self.get_transparency())
 
+    def get_phase_12(self):
+        return np.angle(self.get_r12())
+
+    def get_import_data(self):
+        pth = self.__settings._import_path
+        return ASCIIparser.parseASCII(pth)
+
     def set_settings(self, settings: GraphicSettings):
         self.__settings = settings
 
-    def get_plot_data(self):
-        freqs = self.__settings.get_freqs()
-        evaluator = GraphicPlotter.__evaluators[self.__settings.graphic_type]
-        values = evaluator(self)
+    def get_plot_data(self, normalize: bool = False):
+
+        if (self.__settings.graphic_type == Graphics.EXPORT):
+            freqs, values = self.get_import_data()
+        else:
+            freqs = self.__settings.get_freqs()
+            evaluator = GraphicPlotter.__evaluators[self.__settings.graphic_type]
+            values = evaluator(self)
+
+        if normalize:
+            values = Tok_functions.normalize(values)
+
         return freqs, values
 
     __evaluators: dict() = {
@@ -124,7 +159,7 @@ class GraphicPlotter:
         Graphics.REAL_PART_REFRACTION: real_part_N_from_freq,
         Graphics.IMAG_PART_REFLECTION: imag_part_N_from_freq,
         Graphics.R12: get_R12,
-        Graphics.PHASE_12: None,
+        Graphics.PHASE_12: get_phase_12,
         Graphics.ALPHA: get_alpha,
         Graphics.OPTICAL_DENS_SIMPLE: get_optical_Density,
         Graphics.TRANSPARENCY: get_transparency,

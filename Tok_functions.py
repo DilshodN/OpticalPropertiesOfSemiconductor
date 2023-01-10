@@ -24,7 +24,7 @@ class InputVariables:
 
     K: int = 2  # количество мод связанных зарядов
 
-    d: float = 100 * 1e-7  # толщина плёнки d (в сантиметрах). ВАЖО: ПОЛЬЗОВАТЕЛЬ ВВОДИТ В НАНОМЕТРАХ. УМНОЖАЕМ ВВОД НА 1E-7
+    d: float = 100  # толщина плёнки d (в сантиметрах). ВАЖО: ПОЛЬЗОВАТЕЛЬ ВВОДИТ В НАНОМЕТРАХ. УМНОЖАЕМ ВВОД НА 1E-7
 
     Nm: np.complex64 = 1 + 0j  # комплексный показатель преломления среды за плёнкой
 
@@ -42,20 +42,28 @@ class InputVariables:
 
     Gamma_i: np.array = np.ones(K) * 30  # затухание колебаний связанного заряда (в обратных сантиметрах)
 
+    def get_d(self):
+        return self.d * 1e-7
+
+    def get_m(self):
+        return self.m * Constants.m0
+
+    def get_mi(self):
+        return self.mi * 1.66 * 1e-24
+
+    def get_ei(self):
+        return self.ei * 4.8 * 1e-10
+
 
 # Все функции считают в СГС, однако пользователь задает величины фиг знает в чем, нужно сперва их все перевести
-
-def init_freq(n: int):
-    pass
-
 
 # Плазменная частота свободных колебаний
 # возвращает float - частоту в СГС (TODO: нужно перевести в обратные сантиметры)
 # принимаемые величины задаются пользователем
 # N0 - концентрация свободных носителей заряда, в СГС.
 # eps_inf - диэлектрическая проницаемость для частот много больше фотонных
-def plasma_freq_of_free_oscillations(N0: float, eps_inf: float):
-    return Constants.e / (2 * np.pi * Constants.c) * np.sqrt(4 * np.pi * N0 / (Constants.m0 * eps_inf))
+def plasma_freq_of_free_oscillations(N0: float, eps_inf: float, m: float):
+    return Constants.e / (2 * np.pi * Constants.c) * np.sqrt(4 * np.pi * N0 / (m * eps_inf))
 
 
 # все плазменные частоты для связных зарядов
@@ -81,10 +89,13 @@ def plasma_freq_of_connected_charges(ei: np.array, Ni: np.array, mi: np.array, e
 # v - частота, аргумент функции (хз откуда берется)
 # возращает float - значение диэоектрической проницаемости
 def dielectric_from_freq(freq_p0: float, freq_pi: np.array, vi: np.array, Gamma0: float, Gamma_i: np.array,
-                         eps_inf: float, v: float):
+                         eps_inf: float, v: np.array):
     # TODO: знаменатель в сумме. Там мнимая единица или номер??
-    return eps_inf * (1 - freq_p0 ** 2 / (v ** 2 + v * Gamma0 * 1j) + np.sum(
-        freq_pi ** 2 / (vi ** 2 - v ** 2 - v * Gamma_i * 1j)))
+
+    func = lambda x: eps_inf * (1 - freq_p0 ** 2 / (x ** 2 + x * Gamma0 * 1j) + np.sum(
+        freq_pi ** 2 / (vi ** 2 - x ** 2 - x * Gamma_i * 1j)))
+    vect = np.vectorize(func)
+    return vect(v)
 
 
 # N(v) - показатель преломления
@@ -92,13 +103,14 @@ def dielectric_from_freq(freq_p0: float, freq_pi: np.array, vi: np.array, Gamma0
 # epsilon = dielectric_from_freq
 def N_from_freq(epsilon: np.array):
     N = np.sqrt(epsilon)
-    return np.real(N), np.imag(N)
+    return N
 
 
 # коэффициент поглощения
 # v - частоты
 # k - мнимая часть N(v)
-def alpha_from_frea(v: np.array, k: np.array):
+def alpha_from_freq(v: np.array, k: np.array):
+    print("k", k.shape)
     return 4 * np.pi * v * k
 
 
@@ -112,23 +124,23 @@ def optical_Density(alpha: np.array, d: float):
 # N_air - показ преломл воздуха
 # N_v - N(v) - показ преломления
 def r12(N_air: np.complex64, N_v: np.array):
-    up = -N_v.copy() + N_air
-    down = N_air + N_v.copy()
+    up = -N_v + N_air
+    down = N_air + N_v
     return up / down
 
 
 # компл коэф отр по ампл пленка - среда
 # N_m - показ преломл среды
 def r23(N_v: np.array, N_m: float):
-    up = N_v.copy() - N_m
-    down = N_v.copy() + N_m
+    up = N_v - N_m
+    down = N_v + N_m
     return up / down
 
 
 # коэф отраж по интенсивнойсти
 def R(r: np.array):
     # return np.abs(r)**2
-    return r * np.conj(r)
+    return np.abs(r) ** 2  # r*np.conj(r)
 
 
 # набег фазы
@@ -147,3 +159,11 @@ def T(R12: np.array, R23: np.array, alpha: np.array, d: float, v: np.array, delt
 # оптическая плотность пленки с учетом интерференции
 def A(T: np.array):
     return -np.log(T)
+
+
+def normalize(values: np.array):
+    up = (values - np.min(values))
+    down = (np.max(values) - np.min(values))
+    if down == 0:
+        return values / np.max(values)
+    return up / down
