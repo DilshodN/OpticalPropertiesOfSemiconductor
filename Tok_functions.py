@@ -42,6 +42,11 @@ class InputVariables:
 
     Gamma_i: np.array = np.ones(K) * 30  # затухание колебаний связанного заряда (в обратных сантиметрах)
 
+    N = 1000
+
+    def get_freqs(self):
+        return np.linspace(self.freq_min, self.freq_max, self.N)
+
     def get_d(self):
         return self.d * 1e-7
 
@@ -110,7 +115,6 @@ def N_from_freq(epsilon: np.array):
 # v - частоты
 # k - мнимая часть N(v)
 def alpha_from_freq(v: np.array, k: np.array):
-    print("k", k.shape)
     return 4 * np.pi * v * k
 
 
@@ -167,3 +171,25 @@ def normalize(values: np.array):
     if down == 0:
         return values / np.max(values)
     return up / down
+
+
+def set_mins_maxes_dict(minsDict: dict, maxesDict: dict, mins: np.array, maxes:np.array):
+    for i in range(1,12):
+        minsDict[i] = mins[i-1]
+        maxesDict[i] = maxes[i-1]
+
+#
+# def get_mins_maxes(plotData: dict):
+#     mins = np.zeros(11)
+#     maxes = np.zeros(11)
+#     for i in range(1,12):
+#         min,max = getMinMax(plotData[i][1])
+#         mins[i-1] = min
+#         maxes[i-1] = max
+#     return mins, maxes
+#
+# def get_global_min_max(mins: np.array, maxes: np.array):
+#     return np.min(mins), np.max(maxes)
+#
+# def getMinMax(idxData):
+#     return np.min(idxData), np.max(idxData)

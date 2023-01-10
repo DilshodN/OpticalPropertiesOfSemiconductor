@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1280</width>
-    <height>690</height>
+    <height>800</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -742,6 +742,19 @@
     </property>
     <property name="text">
      <string>Применить</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="axesNorm">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>670</y>
+      <width>113</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
     </property>
    </widget>
   </widget>

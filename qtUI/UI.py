@@ -2,10 +2,22 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from matplotlibwidget import MatplotlibWidget
 import sys
 import numpy as np
-import parser
+import ASCIIparser as parser
 import Tok_functions
+from GraphicsPlotter import GraphicPlotter, Graphics
 from dialog_UI import KSettingsDialog
 import csv
+
+listOfTypes = [Graphics.REAL_PART_DIELECTRIC,
+               Graphics.IMAG_PART_DIELECTRIC,
+               Graphics.REAL_PART_REFRACTION,
+               Graphics.IMAG_PART_REFLECTION,
+               Graphics.R12,
+               Graphics.PHASE_12,
+               Graphics.ALPHA,
+               Graphics.OPTICAL_DENS_SIMPLE,
+               Graphics.TRANSPARENCY,
+               Graphics.OPTICAL_DENS_HARD]
 
 
 class Ui_MainWindow(object):
@@ -14,11 +26,36 @@ class Ui_MainWindow(object):
                          5: None, 6: None, 7: None, 8: None,
                          9: None, 10: None, 11: None}
 
+        self.dataNormDict = {1: None, 2: None, 3: None, 4: None,
+                             5: None, 6: None, 7: None, 8: None,
+                             9: None, 10: None, 11: None}
+
         self.graphicsDict = {1: None, 2: None, 3: None, 4: None,
                              5: None, 6: None, 7: None, 8: None,
                              9: None, 10: None, 11: None}
 
+        self.graphicsNormDict = {1: None, 2: None, 3: None, 4: None,
+                                 5: None, 6: None, 7: None, 8: None,
+                                 9: None, 10: None, 11: None}
+
+        self.minsDict = {1: None, 2: None, 3: None, 4: None,
+                         5: None, 6: None, 7: None, 8: None,
+                         9: None, 10: None, 11: None}
+
+        self.maxsDict = {1: None, 2: None, 3: None, 4: None,
+                         5: None, 6: None, 7: None, 8: None,
+                         9: None, 10: None, 11: None}
+
         self.settings = Tok_functions.InputVariables()
+
+        self.plotter = GraphicPlotter(self.settings)
+
+        self.imported = False
+
+        self.globalMin = 1e+30
+        self.globalMax = 1e-30
+
+        self.updateDataGraphs()
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -405,6 +442,10 @@ class Ui_MainWindow(object):
         self.confirmSettingsBtn.setGeometry(QtCore.QRect(990, 710, 113, 32))
         self.confirmSettingsBtn.setObjectName("confirmSettingsBtn")
 
+        self.axesNorm = QtWidgets.QPushButton(self.centralwidget)
+        self.axesNorm.setGeometry(QtCore.QRect(340, 670, 113, 32))
+        self.axesNorm.setObjectName("axesNorm")
+
         MainWindow.setCentralWidget(self.centralwidget)
         self.actionImport = QtWidgets.QAction(MainWindow)
         self.actionImport.setCheckable(False)
@@ -476,6 +517,7 @@ class Ui_MainWindow(object):
         self.label_num10.setText(_translate("MainWindow", "10"))
         self.label_num11.setText(_translate("MainWindow", "11"))
         self.confirmSettingsBtn.setText(_translate("MainWindow", "Применить"))
+        self.axesNorm.setText(_translate("MainWindow", "Отнормировать оси"))
 
         self.importBtn.clicked.connect(self.importFileHandler)
 
@@ -490,28 +532,82 @@ class Ui_MainWindow(object):
         self.checkBox_9.toggled.connect(self.checkboxHandler9)
         self.checkBox_10.toggled.connect(self.checkboxHandler10)
         self.checkBox_11.toggled.connect(self.checkboxHandler11)
+        self.checkBox_norm_1.toggled.connect(self.checkboxHandler1)
+        self.checkBox_norm_2.toggled.connect(self.checkboxHandler2)
+        self.checkBox_norm_3.toggled.connect(self.checkboxHandler3)
+        self.checkBox_norm_4.toggled.connect(self.checkboxHandler4)
+        self.checkBox_norm_5.toggled.connect(self.checkboxHandler5)
+        self.checkBox_norm_6.toggled.connect(self.checkboxHandler6)
+        self.checkBox_norm_7.toggled.connect(self.checkboxHandler7)
+        self.checkBox_norm_8.toggled.connect(self.checkboxHandler8)
+        self.checkBox_norm_9.toggled.connect(self.checkboxHandler9)
+        self.checkBox_norm_10.toggled.connect(self.checkboxHandler10)
+        self.checkBox_norm_11.toggled.connect(self.checkboxHandler11)
 
         self.paramsBtn.clicked.connect(self.settingsKButtonHandler)
         self.confirmSettingsBtn.clicked.connect(self.confirmSettingsBtnHandler)
         self.exportBtn.clicked.connect(self.exportBtnHandler)
+        self.axesNorm.clicked.connect(self.normAxesBtnHandler)
+
+    # def updateMinsMaxs(self):
+    #     mins, maxs = Tok_functions.get_mins_maxes(self.dataDict)
+    #     Tok_functions.set_mins_maxes_dict(self.minsDict, self.maxsDict, mins, maxs)
+    #     self.globalMin, self.globalMax = 1e+30, 1e-30
+
+    def updateDataGraphs(self):
+        self.plotter.set_settings(self.settings)
+        for i in range(10):
+            self.dataDict[i + 1] = self.plotter.get_plot_data(listOfTypes[i])
+            self.dataNormDict[i + 1] = self.plotter.get_plot_data(listOfTypes[i], True)
+        # self.updateMinsMaxs()
+
+    def updateGraphs(self):
+        self.checkBox_10.toggle()
+        self.checkBox_10.toggle()
+        # self.MatplotlibWidget.canvas.draw_idle()()
+        # for i in range(1, 11):
+        #     if self.graphicsDict[i] is not None:
+        #         self.removePlot(i)
+        #         self.plot(*(self.dataDict[i]), i)
+        #
+        #     if self.graphicsNormDict[i] is not None:
+        #         self.removeNormPlot(i)
+        #         self.plotNorm(*(self.dataNormDict[i]), i)
 
     def plot(self, x, y, label):
         graphDetails = self.MatplotlibWidget.canvas.axes.plot(x, y, label=label)
         self.MatplotlibWidget.canvas.axes.legend()
-        self.MatplotlibWidget.canvas.draw()
+        self.MatplotlibWidget.canvas.draw_idle()
 
         self.graphicsDict[label] = graphDetails
+
+    def plotNorm(self, x, y, label):
+        graphDetails = self.MatplotlibWidget.canvas.axes.plot(x, y, label=str(label) + " norm")
+        self.MatplotlibWidget.canvas.draw_idle()
+        self.MatplotlibWidget.canvas.axes.set_ylim([0, 1])
+        self.graphicsNormDict[label] = graphDetails
 
     def removePlot(self, idx):
         if self.graphicsDict[idx] is None:
             return
         line = self.graphicsDict[idx].pop(0)
         line.remove()
-        self.MatplotlibWidget.canvas.draw()
+        self.MatplotlibWidget.canvas.draw_idle()
         self.graphicsDict[idx] = None
+
+    def removeNormPlot(self, idx):
+        if self.graphicsNormDict[idx] is None:
+            return
+        line = self.graphicsNormDict[idx].pop(0)
+        line.remove()
+        self.MatplotlibWidget.canvas.draw_idle()
+        self.graphicsNormDict[idx] = None
 
     def writeDataToDict(self, data, idx):
         self.dataDict[idx] = data
+
+    def writeDataToNormDict(self, data, idx):
+        self.dataNormDict[idx] = data
 
     def importFileHandler(self):
         filename, _ = QtWidgets.QFileDialog.getOpenFileName(self.centralwidget)
@@ -527,172 +623,238 @@ class Ui_MainWindow(object):
             self.errorMessage('Invalid format of file')
 
         self.writeDataToDict(importData, 11)
-        self.checkBox_11.setChecked(True)
+        self.imported = True
+
+        x, y = importData
+        y_norm = Tok_functions.normalize(y)
+        self.writeDataToNormDict((x, y_norm), 11)
 
     def checkboxHandler1(self):
-        if self.checkBox_1.isChecked():
-            if self.dataDict[1] is not None:
-                if self.graphicsDict[1] is None:
-                    self.plot(*(self.dataDict[1]), 1)
-                else:
-                    return
-            else:
+        if not self.checkBox_1.isChecked() and not self.checkBox_norm_1.isChecked():
+            if self.graphicsDict[1] is not None:
+                self.removePlot(1)
+            return
+        elif self.checkBox_1.isChecked() and not self.checkBox_norm_1.isChecked():
+            if self.graphicsNormDict[1] is not None:
+                self.removeNormPlot(1)
+            self.plot(*(self.dataDict[1]), 1)
+        elif not self.checkBox_1.isChecked() and self.checkBox_norm_1.isChecked():
+            if self.graphicsNormDict[1] is None:
                 return
+            else:
+                self.removeNormPlot(1)
         else:
             if self.graphicsDict[1] is not None:
                 self.removePlot(1)
-            else:
-                return
+            self.plotNorm(*(self.dataNormDict[1]), 1)
 
     def checkboxHandler2(self):
-        if self.checkBox_2.isChecked():
-            if self.dataDict[2] is not None:
-                if self.graphicsDict[2] is None:
-                    self.plot(*(self.dataDict[2]), 2)
-                else:
-                    return
-            else:
+        if not self.checkBox_2.isChecked() and not self.checkBox_norm_2.isChecked():
+            if self.graphicsDict[2] is not None:
+                self.removePlot(2)
+            return
+        elif self.checkBox_2.isChecked() and not self.checkBox_norm_2.isChecked():
+            if self.graphicsNormDict[2] is not None:
+                self.removeNormPlot(2)
+            self.plot(*(self.dataDict[2]), 2)
+        elif not self.checkBox_2.isChecked() and self.checkBox_norm_2.isChecked():
+            if self.graphicsNormDict[2] is None:
                 return
+            else:
+                self.removeNormPlot(2)
         else:
             if self.graphicsDict[2] is not None:
                 self.removePlot(2)
-            else:
-                return
+            self.plotNorm(*(self.dataNormDict[2]), 2)
 
     def checkboxHandler3(self):
-        if self.checkBox_3.isChecked():
-            if self.dataDict[3] is not None:
-                if self.graphicsDict[3] is None:
-                    self.plot(*(self.dataDict[3]), 3)
-                else:
-                    return
-            else:
+        if not self.checkBox_3.isChecked() and not self.checkBox_norm_3.isChecked():
+            if self.graphicsDict[3] is not None:
+                self.removePlot(3)
+            return
+        elif self.checkBox_3.isChecked() and not self.checkBox_norm_3.isChecked():
+            if self.graphicsNormDict[3] is not None:
+                self.removeNormPlot(3)
+            self.plot(*(self.dataDict[3]), 3)
+        elif not self.checkBox_3.isChecked() and self.checkBox_norm_3.isChecked():
+            if self.graphicsNormDict[3] is None:
                 return
+            else:
+                self.removeNormPlot(3)
         else:
             if self.graphicsDict[3] is not None:
                 self.removePlot(3)
-            else:
-                return
+            self.plotNorm(*(self.dataNormDict[3]), 3)
 
     def checkboxHandler4(self):
-        if self.checkBox_4.isChecked():
-            if self.dataDict[4] is not None:
-                if self.graphicsDict[4] is None:
-                    self.plot(*(self.dataDict[4]), 4)
-                else:
-                    return
-            else:
+        if not self.checkBox_4.isChecked() and not self.checkBox_norm_4.isChecked():
+            if self.graphicsDict[4] is not None:
+                self.removePlot(4)
+            return
+        elif self.checkBox_4.isChecked() and not self.checkBox_norm_4.isChecked():
+            if self.graphicsNormDict[4] is not None:
+                self.removeNormPlot(4)
+            self.plot(*(self.dataDict[4]), 4)
+        elif not self.checkBox_4.isChecked() and self.checkBox_norm_4.isChecked():
+            if self.graphicsNormDict[4] is None:
                 return
+            else:
+                self.removeNormPlot(4)
         else:
             if self.graphicsDict[4] is not None:
                 self.removePlot(4)
-            else:
-                return
+            self.plotNorm(*(self.dataNormDict[4]), 4)
 
     def checkboxHandler5(self):
-        if self.checkBox_5.isChecked():
-            if self.dataDict[5] is not None:
-                if self.graphicsDict[5] is None:
-                    self.plot(*(self.dataDict[5]), 5)
-                else:
-                    return
-            else:
+        if not self.checkBox_5.isChecked() and not self.checkBox_norm_5.isChecked():
+            if self.graphicsDict[5] is not None:
+                self.removePlot(5)
+            return
+        elif self.checkBox_5.isChecked() and not self.checkBox_norm_5.isChecked():
+            if self.graphicsNormDict[5] is not None:
+                self.removeNormPlot(5)
+            self.plot(*(self.dataDict[5]), 5)
+        elif not self.checkBox_5.isChecked() and self.checkBox_norm_5.isChecked():
+            if self.graphicsNormDict[5] is None:
                 return
+            else:
+                self.removeNormPlot(5)
         else:
             if self.graphicsDict[5] is not None:
                 self.removePlot(5)
-            else:
-                return
+            self.plotNorm(*(self.dataNormDict[5]), 5)
 
     def checkboxHandler6(self):
-        if self.checkBox_6.isChecked():
-            if self.dataDict[6] is not None:
-                if self.graphicsDict[6] is None:
-                    self.plot(*(self.dataDict[6]), 6)
-                else:
-                    return
-            else:
+        if not self.checkBox_6.isChecked() and not self.checkBox_norm_6.isChecked():
+            if self.graphicsDict[6] is not None:
+                self.removePlot(6)
+            return
+        elif self.checkBox_6.isChecked() and not self.checkBox_norm_6.isChecked():
+            if self.graphicsNormDict[6] is not None:
+                self.removeNormPlot(6)
+            self.plot(*(self.dataDict[6]), 6)
+        elif not self.checkBox_6.isChecked() and self.checkBox_norm_6.isChecked():
+            if self.graphicsNormDict[6] is None:
                 return
+            else:
+                self.removeNormPlot(6)
         else:
             if self.graphicsDict[6] is not None:
                 self.removePlot(6)
-            else:
-                return
+            self.plotNorm(*(self.dataNormDict[6]), 6)
 
     def checkboxHandler7(self):
-        if self.checkBox_7.isChecked():
-            if self.dataDict[7] is not None:
-                if self.graphicsDict[7] is None:
-                    self.plot(*(self.dataDict[7]), 7)
-                else:
-                    return
-            else:
+        if not self.checkBox_7.isChecked() and not self.checkBox_norm_7.isChecked():
+            if self.graphicsDict[7] is not None:
+                self.removePlot(7)
+            return
+        elif self.checkBox_7.isChecked() and not self.checkBox_norm_7.isChecked():
+            if self.graphicsNormDict[7] is not None:
+                self.removeNormPlot(7)
+            self.plot(*(self.dataDict[7]), 7)
+        elif not self.checkBox_7.isChecked() and self.checkBox_norm_7.isChecked():
+            if self.graphicsNormDict[7] is None:
                 return
+            else:
+                self.removeNormPlot(7)
         else:
             if self.graphicsDict[7] is not None:
                 self.removePlot(7)
-            else:
-                return
+            self.plotNorm(*(self.dataNormDict[7]), 7)
 
     def checkboxHandler8(self):
-        if self.checkBox_8.isChecked():
-            if self.dataDict[8] is not None:
-                if self.graphicsDict[8] is None:
-                    self.plot(*(self.dataDict[8]), 8)
-                else:
-                    return
-            else:
+        if not self.checkBox_8.isChecked() and not self.checkBox_norm_8.isChecked():
+            if self.graphicsDict[8] is not None:
+                self.removePlot(8)
+            return
+        elif self.checkBox_8.isChecked() and not self.checkBox_norm_8.isChecked():
+            if self.graphicsNormDict[8] is not None:
+                self.removeNormPlot(8)
+            self.plot(*(self.dataDict[8]), 8)
+        elif not self.checkBox_8.isChecked() and self.checkBox_norm_8.isChecked():
+            if self.graphicsNormDict[8] is None:
                 return
+            else:
+                self.removeNormPlot(8)
         else:
             if self.graphicsDict[8] is not None:
                 self.removePlot(8)
-            else:
-                return
+            self.plotNorm(*(self.dataNormDict[8]), 8)
 
     def checkboxHandler9(self):
-        if self.checkBox_9.isChecked():
-            if self.dataDict[9] is not None:
-                if self.graphicsDict[9] is None:
-                    self.plot(*(self.dataDict[9]), 9)
-                else:
-                    return
-            else:
+        if not self.checkBox_9.isChecked() and not self.checkBox_norm_9.isChecked():
+            if self.graphicsDict[9] is not None:
+                self.removePlot(9)
+            return
+        elif self.checkBox_9.isChecked() and not self.checkBox_norm_9.isChecked():
+            if self.graphicsNormDict[9] is not None:
+                self.removeNormPlot(9)
+            self.plot(*(self.dataDict[9]), 9)
+        elif not self.checkBox_9.isChecked() and self.checkBox_norm_9.isChecked():
+            if self.graphicsNormDict[9] is None:
                 return
+            else:
+                self.removeNormPlot(9)
         else:
             if self.graphicsDict[9] is not None:
                 self.removePlot(9)
-            else:
-                return
+            self.plotNorm(*(self.dataNormDict[9]), 9)
 
     def checkboxHandler10(self):
-        if self.checkBox_10.isChecked():
-            if self.dataDict[10] is not None:
-                if self.graphicsDict[10] is None:
-                    self.plot(*(self.dataDict[10]), 10)
-                else:
-                    return
-            else:
+        if not self.checkBox_10.isChecked() and not self.checkBox_norm_10.isChecked():
+            if self.graphicsDict[10] is not None:
+                self.removePlot(10)
+            return
+        elif self.checkBox_10.isChecked() and not self.checkBox_norm_10.isChecked():
+            if self.graphicsNormDict[10] is not None:
+                self.removeNormPlot(10)
+            self.plot(*(self.dataDict[10]), 10)
+        elif not self.checkBox_10.isChecked() and self.checkBox_norm_10.isChecked():
+            if self.graphicsNormDict[10] is None:
                 return
+            else:
+                self.removeNormPlot(10)
         else:
             if self.graphicsDict[10] is not None:
                 self.removePlot(10)
-            else:
-                return
+            self.plotNorm(*(self.dataNormDict[10]), 10)
 
     def checkboxHandler11(self):
-        if self.checkBox_11.isChecked():
-            if self.dataDict[11] is not None:
-                if self.graphicsDict[11] is None:
-                    self.plot(*(self.dataDict[11]), 11)
-                else:
-                    return
-            else:
-                return
-        else:
+        # 0 0 – no graphs
+        # 1 0 - graph
+        # 0 1 - no graph
+        # 1 1 - norm graph
+        # data is available
+        if not self.imported:
+            return
+            # 0 0
+        if not self.checkBox_11.isChecked() and not self.checkBox_norm_11.isChecked():
+            # from 10
             if self.graphicsDict[11] is not None:
                 self.removePlot(11)
-            else:
+            # from 01
+            return
+            # 1 0
+        elif self.checkBox_11.isChecked() and not self.checkBox_norm_11.isChecked():
+            # from 11
+            if self.graphicsNormDict[11] is not None:
+                self.removeNormPlot(11)
+            # from 00
+            self.plot(*(self.dataDict[11]), 11)
+            # 0 1
+        elif not self.checkBox_11.isChecked() and self.checkBox_norm_11.isChecked():
+            # from 00
+            if self.graphicsNormDict[11] is None:
                 return
+                # from 11
+            else:
+                self.removeNormPlot(11)
+        # 1 1
+        else:
+            # from 10
+            if self.graphicsDict[11] is not None:
+                self.removePlot(11)
+            self.plotNorm(*(self.dataNormDict[11]), 11)
 
     def settingsKButtonHandler(self):
         for k in range(self.settings.K):
@@ -753,6 +915,10 @@ class Ui_MainWindow(object):
             self.settings.freq_min = float(self.minFreqTextEdit.toPlainText())
 
             self.settings.freq_min = float(self.maxFreqTextEdit.toPlainText())
+
+            self.updateDataGraphs()
+
+            self.updateGraphs()
         except ValueError:
             self.errorMessage("Invalid Input")
 
@@ -787,6 +953,33 @@ class Ui_MainWindow(object):
         writer = csv.writer(file)
         writer.writerows(zip(x, y))
         file.close()
+
+    def normAxesBtnHandler(self):
+        indices = []
+        for i in range(1, 12):
+            if self.graphicsDict[i] is not None:
+                indices.append(i)
+        mins = []
+        maxs = []
+        if len(indices) == 0:
+            return
+
+        for idx in indices:
+            mins.append(np.min(self.dataDict[idx][1]))
+            maxs.append(np.max(self.dataDict[idx][1]))
+
+        gmin, gmax = np.min(mins), np.max(maxs)
+
+        if any(self.graphicsNormDict.values()):
+            gmin = gmin if gmin < 0 else 0
+            gmax = gmax if gmax > 1 else 1
+        if gmin == gmax:
+            delta = 0.1 * gmin
+            gmin = gmin - delta
+            gmax = gmax + delta
+        print(gmax, gmin)
+        self.MatplotlibWidget.canvas.draw_idle()
+        self.MatplotlibWidget.canvas.axes.set_ylim([1.1 * gmin, 1.1 * gmax])
 
     def errorMessage(self, text='Error'):
         error_dialog = QtWidgets.QErrorMessage(self.centralwidget)
