@@ -154,7 +154,7 @@ class GraphicPlotter:
         Graphics.ALPHA: get_alpha,
         Graphics.OPTICAL_DENS_SIMPLE: get_optical_Density,
         Graphics.TRANSPARENCY: get_transparency,
-        Graphics.OPTICAL_DENS_HARD: get_transparency,
+        Graphics.OPTICAL_DENS_HARD: get_optical_density_interf,
     }
 
     pass
