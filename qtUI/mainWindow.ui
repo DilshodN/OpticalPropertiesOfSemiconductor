@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1280</width>
-    <height>690</height>
+    <height>689</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,620 +19,13 @@
   <property name="minimumSize">
    <size>
     <width>1280</width>
-    <height>0</height>
+    <height>689</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="horizontalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>600</y>
-      <width>761</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QPushButton" name="importBtn">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Импортировать файл</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="paramsBtn">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Параметры</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="exportBtn">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Экспортировать в файл</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>790</x>
-      <y>40</y>
-      <width>431</width>
-      <height>311</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QCheckBox" name="checkBox_1">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Реальная часть диэлектрической проницаемости ε’(ν)</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_2">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Мнимая часть диэлектрической проницаемости ε’’(ν)</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_3">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Реальная часть показателя преломления n(ν)</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_4">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Мнимая часть показателя преломления k(ν)</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_5">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Коэффициент отражения по интенсивности R12(ν)</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_6">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Фаза коэффициента отражения по амплитуде 𝜑12(𝜈)</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_7">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Коэффициент поглощения (в обратных сантиметрах) 𝛼(𝜈)</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_8">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Оптическая плотность плёнки (без учёта интерференции) D(ν)</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_9">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Пропускание плёнки T(ν)</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_10">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Оптическая плотность плёнки (с учётом интерференции) A(ν)</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_11">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Импортированный экспериментальный спектр</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="verticalLayoutWidget_2">
-    <property name="geometry">
-     <rect>
-      <x>1220</x>
-      <y>40</y>
-      <width>21</width>
-      <height>311</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item>
-      <widget class="QCheckBox" name="checkBox_norm_1">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_norm_2">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_norm_3">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_norm_4">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_norm_5">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_norm_6">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_norm_7">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_norm_8">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_norm_9">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_norm_10">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_norm_11">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>790</x>
-      <y>10</y>
-      <width>251</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Helvetica</family>
-     </font>
-    </property>
-    <property name="text">
-     <string>Графики</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>1150</x>
-      <y>10</y>
-      <width>91</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Helvetica</family>
-     </font>
-    </property>
-    <property name="text">
-     <string>Нормировка</string>
-    </property>
-   </widget>
-   <widget class="QWidget" name="formLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>770</x>
-      <y>360</y>
-      <width>201</width>
-      <height>211</height>
-     </rect>
-    </property>
-    <layout class="QFormLayout" name="formLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="n0Label">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>N0</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="n0LineEdit">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="m0Label">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>m</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="m0LineEdit"/>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="gamma0Label">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Gamma0</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="gamma0LineEdit"/>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="e_infLabel">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>eps_inf</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QLineEdit" name="e_infLineEdit"/>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="kLabel">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>K</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="dLabel">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>d</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="QLineEdit" name="dLineEdit"/>
-     </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="nmLabel">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Nm</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="QLineEdit" name="nmLineEdit"/>
-     </item>
-     <item row="4" column="1">
-      <widget class="QLineEdit" name="kLineEdit"/>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="verticalLayoutWidget_3">
-    <property name="geometry">
-     <rect>
-      <x>980</x>
-      <y>360</y>
-      <width>281</width>
-      <height>211</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_3">
-     <item>
-      <widget class="QLabel" name="label_4">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Концентрация с.н.з. (прим. '1e10') [см^-3]</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_3">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Масса с.н.з. (m * 9.1e-28)</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_5">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Затухание колебаний c.з. [см^-1]</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_6">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Д.п. для частот много больше фононных</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_7">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Количество мод (от 0 до 10)</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_8">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Толщина пленки [нм]</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_9">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Комплекский показ. прел. (прим. '1+2j' )</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="gridLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>770</x>
-      <y>580</y>
-      <width>491</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="2">
-      <widget class="QLabel" name="label_11">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>до</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="4">
-      <widget class="QLabel" name="label_12">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>[см^-1]</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_10">
-       <property name="font">
-        <font>
-         <family>Helvetica</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Пределы частот:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="3">
-      <widget class="QTextEdit" name="maxFreqTextEdit"/>
-     </item>
-     <item row="0" column="1">
-      <widget class="QTextEdit" name="minFreqTextEdit"/>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QLabel" name="label_13">
-    <property name="geometry">
-     <rect>
-      <x>850</x>
-      <y>650</y>
-      <width>411</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>PT Mono</family>
-      <pointsize>18</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Дилшод Нозимов и Андрей Токарев, 2023</string>
-    </property>
-   </widget>
    <widget class="QWidget" name="gridLayoutWidget_2">
     <property name="geometry">
      <rect>
@@ -648,120 +41,719 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="verticalLayoutWidget_4">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
       <x>770</x>
-      <y>40</y>
-      <width>21</width>
-      <height>311</height>
+      <y>10</y>
+      <width>491</width>
+      <height>651</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="enumLayout">
+    <layout class="QVBoxLayout" name="rhsLayout">
      <item>
-      <widget class="QLabel" name="label_num1">
+      <layout class="QHBoxLayout" name="GraphicNormLabelLayout">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="font">
+          <font>
+           <family>Helvetica</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>Графики</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="font">
+          <font>
+           <family>Helvetica</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>Нормировка</string>
+         </property>
+         <property name="scaledContents">
+          <bool>false</bool>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="EnumCheckBoxesLayout">
+       <item>
+        <layout class="QVBoxLayout" name="enumLayout">
+         <item>
+          <widget class="QLabel" name="label_num1">
+           <property name="text">
+            <string>1</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_num2">
+           <property name="text">
+            <string>2</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_num3">
+           <property name="text">
+            <string>3</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_num4">
+           <property name="text">
+            <string>4</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_num5">
+           <property name="text">
+            <string>5</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_num6">
+           <property name="text">
+            <string>6</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_num7">
+           <property name="text">
+            <string>7</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_num8">
+           <property name="text">
+            <string>8</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_num9">
+           <property name="text">
+            <string>9</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_num10">
+           <property name="text">
+            <string>10</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_num11">
+           <property name="text">
+            <string>11</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QCheckBox" name="checkBox_1">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>Реальная часть диэлектрической проницаемости ε’(ν)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_2">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>Мнимая часть диэлектрической проницаемости ε’’(ν)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_3">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>Реальная часть показателя преломления n(ν)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_4">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>Мнимая часть показателя преломления k(ν)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_5">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>Коэффициент отражения по интенсивности R12(ν)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_6">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>Фаза коэффициента отражения по амплитуде 𝜑12(𝜈)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_7">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>Коэффициент поглощения (в обратных сантиметрах) 𝛼(𝜈)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_8">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>Оптическая плотность плёнки (без учёта интерференции) D(ν)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_9">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>Пропускание плёнки T(ν)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_10">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>Оптическая плотность плёнки (с учётом интерференции) A(ν)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_11">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>Импортированный экспериментальный спектр</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QCheckBox" name="checkBox_norm_1">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_norm_2">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_norm_3">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_norm_4">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_norm_5">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_norm_6">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_norm_7">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_norm_8">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_norm_9">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_norm_10">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_norm_11">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="ParamsLayout">
+       <item>
+        <layout class="QFormLayout" name="formLayout">
+         <item row="0" column="0">
+          <widget class="QLabel" name="n0Label">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>N0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="n0LineEdit">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="m0Label">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>m</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="m0LineEdit"/>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="gamma0Label">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>Gamma0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="gamma0LineEdit"/>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="e_infLabel">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>eps_inf</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QLineEdit" name="e_infLineEdit"/>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="kLabel">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>K</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="dLabel">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>d</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1">
+          <widget class="QLineEdit" name="dLineEdit"/>
+         </item>
+         <item row="6" column="0">
+          <widget class="QLabel" name="nmLabel">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>Nm</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="1">
+          <widget class="QLineEdit" name="nmLineEdit"/>
+         </item>
+         <item row="4" column="1">
+          <widget class="QLineEdit" name="kLineEdit"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QLabel" name="label_4">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>Концентрация с.н.з. (прим. '1e10') [см^-3]</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>Масса с.н.з. (m * 9.1e-28)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_5">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>Затухание колебаний c.з. [см^-1]</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_6">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>Д.п. для частот много больше фононных</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_7">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>Количество мод (от 0 до 10)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_8">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>Толщина пленки [нм]</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_9">
+           <property name="font">
+            <font>
+             <family>Helvetica</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>Комплекский показ. прел. (прим. '1+2j' )</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QPushButton" name="confirmSettingsBtn">
        <property name="text">
-        <string>1</string>
+        <string>Применить</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_num2">
-       <property name="text">
-        <string>2</string>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="FreqsLayout">
+       <item>
+        <widget class="QLabel" name="label_10">
+         <property name="font">
+          <font>
+           <family>Helvetica</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>Пределы частот:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="minFreqLineEdit"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_11">
+         <property name="font">
+          <font>
+           <family>Helvetica</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>до</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="maxFreqLineEdit"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_12">
+         <property name="font">
+          <font>
+           <family>Helvetica</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>[см^-1]</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
-      <widget class="QLabel" name="label_num3">
-       <property name="text">
-        <string>3</string>
+      <widget class="QLabel" name="label_13">
+       <property name="font">
+        <font>
+         <family>PT Mono</family>
+         <pointsize>18</pointsize>
+        </font>
        </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_num4">
        <property name="text">
-        <string>4</string>
+        <string>Дилшод Нозимов и Андрей Токарев, 2023</string>
        </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_num5">
-       <property name="text">
-        <string>5</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_19">
-       <property name="text">
-        <string>6</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_20">
-       <property name="text">
-        <string>7</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_21">
-       <property name="text">
-        <string>8</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_22">
-       <property name="text">
-        <string>9</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_23">
-       <property name="text">
-        <string>10</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_24">
-       <property name="text">
-        <string>11</string>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="confirmSettingsBtn">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>970</x>
-      <y>610</y>
-      <width>113</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Применить</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="axesNorm">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
+      <x>0</x>
       <y>570</y>
-      <width>221</width>
-      <height>32</height>
+      <width>761</width>
+      <height>91</height>
      </rect>
     </property>
-    <property name="text">
-     <string>PushButton</string>
-    </property>
+    <layout class="QVBoxLayout" name="ButtonsLayout">
+     <item>
+      <widget class="QPushButton" name="axesNorm">
+       <property name="text">
+        <string>Отнормировать оси</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="ImExLayout">
+       <item>
+        <widget class="QPushButton" name="importBtn">
+         <property name="font">
+          <font>
+           <family>Helvetica</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>Импортировать файл</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="paramsBtn">
+         <property name="font">
+          <font>
+           <family>Helvetica</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>Параметры мод</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="exportBtn">
+         <property name="font">
+          <font>
+           <family>Helvetica</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>Экспортировать в файл</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
    </widget>
   </widget>
   <action name="actionImport">
