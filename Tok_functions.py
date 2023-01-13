@@ -162,7 +162,7 @@ def T(R12: np.array, R23: np.array, alpha: np.array, d: float, v: np.array, delt
 
 # оптическая плотность пленки с учетом интерференции
 def A(T: np.array):
-    return -np.log(T)
+    return np.log(T)
 
 
 def normalize(values: np.array):
