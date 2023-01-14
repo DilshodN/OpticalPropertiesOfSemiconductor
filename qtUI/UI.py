@@ -967,15 +967,17 @@ class Ui_MainWindow(object):
         return count
 
     def findNotNoneIdx(self):
-        if any(self.dataDict.values()):
+        if any(self.graphicsDict.values()):
+            normBool = False
             value_list = list(self.graphicsDict.values())
         else:
+            normBool = True
             value_list = list(self.graphicsNormDict.values())
 
         values = [item for item in value_list if item is not None]
         assert len(values) == 1
         idx = value_list.index(values[0])
-        return idx
+        return idx, normBool
 
     def exportBtnHandler(self):
 
@@ -991,14 +993,17 @@ class Ui_MainWindow(object):
         if name == '':
             return
 
-        file = open(name, 'w')
-        if self.graphicsNormDict.get(self.findNotNoneIdx() + 1) is not None:
-            x, y = self.dataNormDict.get(self.findNotNoneIdx() + 1)
+        idx, normBool = self.findNotNoneIdx()
+        if normBool:
+            x, y = self.dataNormDict.get(idx + 1)
         else:
-            x, y = self.dataDict.get(self.findNotNoneIdx() + 1)
-        writer = csv.writer(file)
-        writer.writerows(zip(x, y))
-        file.close()
+            x, y = self.dataDict.get(idx + 1)
+
+        parser.exportASCII(x, y, name)
+        # file = open(name, 'w')
+        # writer = csv.writer(file)
+        # writer.writerows(zip(x, y))
+        # file.close()
 
     def normAxesBtnHandler(self):
         indices = []

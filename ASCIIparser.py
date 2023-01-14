@@ -19,8 +19,8 @@ def parseASCII(filename: str):
         return None
     return np.array(freq, dtype=float), np.array(opticalDensity, dtype=float)
 
+
 def exportASCII(freqs: np.array, values: np.array, filename: str):
-    
     with open(filename, 'w') as file:
         for i in range(len(freqs)):
             file.write(str(freqs[i]) + " " + str(values[i]) + "\n")
