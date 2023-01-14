@@ -460,7 +460,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Оптические Свойства Полупроводника"))
         self.label.setText(_translate("MainWindow", "Графики"))
         self.label_2.setText(_translate("MainWindow", "Нормировка"))
         self.label_num1.setText(_translate("MainWindow", "1"))
@@ -959,10 +959,18 @@ class Ui_MainWindow(object):
         for elem in self.graphicsDict.values():
             if elem is not None:
                 count += 1
+
+        for elem in self.graphicsNormDict.values():
+            if elem is not None:
+                count += 1
+
         return count
 
     def findNotNoneIdx(self):
-        value_list = list(self.graphicsDict.values())
+        if any(self.dataDict.values()):
+            value_list = list(self.graphicsDict.values())
+        else:
+            value_list = list(self.graphicsNormDict.values())
 
         values = [item for item in value_list if item is not None]
         assert len(values) == 1
@@ -970,6 +978,7 @@ class Ui_MainWindow(object):
         return idx
 
     def exportBtnHandler(self):
+
         count = self.countNonNones()
         if count == 0:
             self.errorMessage("No graphs to save")
@@ -979,9 +988,14 @@ class Ui_MainWindow(object):
             return
 
         name, _ = QtWidgets.QFileDialog.getSaveFileName(self.centralwidget, 'Save File')
-        file = open(name, 'w')
+        if name == '':
+            return
 
-        x, y = self.dataDict.get(self.findNotNoneIdx() + 1)
+        file = open(name, 'w')
+        if self.graphicsNormDict.get(self.findNotNoneIdx() + 1) is not None:
+            x, y = self.dataNormDict.get(self.findNotNoneIdx() + 1)
+        else:
+            x, y = self.dataDict.get(self.findNotNoneIdx() + 1)
         writer = csv.writer(file)
         writer.writerows(zip(x, y))
         file.close()

@@ -110,7 +110,7 @@ class GraphicPlotter:
 
     def get_R23(self):
         N_v = self.get_N_from_freq()
-        r = Tok_functions.r23(self.variables.N_air, N_v)
+        r = Tok_functions.r23(N_v, self.variables.Nm)
         return Tok_functions.R(r)
 
     def get_alpha(self):
