@@ -85,7 +85,7 @@ class Ui_MainWindow(object):
         font.setFamily("Helvetica")
         self.label_2.setFont(font)
         self.label_2.setScaledContents(False)
-        self.label_2.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_2.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.label_2.setObjectName("label_2")
         self.GraphicNormLabelLayout.addWidget(self.label_2)
         self.rhsLayout.addLayout(self.GraphicNormLabelLayout)
@@ -94,47 +94,47 @@ class Ui_MainWindow(object):
         self.enumLayout = QtWidgets.QVBoxLayout()
         self.enumLayout.setObjectName("enumLayout")
         self.label_num1 = QtWidgets.QLabel(self.widget)
-        self.label_num1.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_num1.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.label_num1.setObjectName("label_num1")
         self.enumLayout.addWidget(self.label_num1)
         self.label_num2 = QtWidgets.QLabel(self.widget)
-        self.label_num2.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_num2.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.label_num2.setObjectName("label_num2")
         self.enumLayout.addWidget(self.label_num2)
         self.label_num3 = QtWidgets.QLabel(self.widget)
-        self.label_num3.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_num3.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.label_num3.setObjectName("label_num3")
         self.enumLayout.addWidget(self.label_num3)
         self.label_num4 = QtWidgets.QLabel(self.widget)
-        self.label_num4.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_num4.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.label_num4.setObjectName("label_num4")
         self.enumLayout.addWidget(self.label_num4)
         self.label_num5 = QtWidgets.QLabel(self.widget)
-        self.label_num5.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_num5.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.label_num5.setObjectName("label_num5")
         self.enumLayout.addWidget(self.label_num5)
         self.label_num6 = QtWidgets.QLabel(self.widget)
-        self.label_num6.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_num6.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.label_num6.setObjectName("label_num6")
         self.enumLayout.addWidget(self.label_num6)
         self.label_num7 = QtWidgets.QLabel(self.widget)
-        self.label_num7.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_num7.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.label_num7.setObjectName("label_num7")
         self.enumLayout.addWidget(self.label_num7)
         self.label_num8 = QtWidgets.QLabel(self.widget)
-        self.label_num8.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_num8.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.label_num8.setObjectName("label_num8")
         self.enumLayout.addWidget(self.label_num8)
         self.label_num9 = QtWidgets.QLabel(self.widget)
-        self.label_num9.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_num9.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.label_num9.setObjectName("label_num9")
         self.enumLayout.addWidget(self.label_num9)
         self.label_num10 = QtWidgets.QLabel(self.widget)
-        self.label_num10.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_num10.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.label_num10.setObjectName("label_num10")
         self.enumLayout.addWidget(self.label_num10)
         self.label_num11 = QtWidgets.QLabel(self.widget)
-        self.label_num11.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_num11.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.label_num11.setObjectName("label_num11")
         self.enumLayout.addWidget(self.label_num11)
         self.EnumCheckBoxesLayout.addLayout(self.enumLayout)
@@ -868,6 +868,7 @@ class Ui_MainWindow(object):
     def settingsKButtonHandler(self):
         for k in range(self.settings.K):
             dlg = KSettingsDialog(MainWindow, k=(k + 1))
+            dlg.ui.setVariables(self.settings, k)
             dlg.exec()
             try:
                 if 0 > float(dlg.ui.data[0]) > 1e23:
@@ -887,6 +888,7 @@ class Ui_MainWindow(object):
                 break
             except TypeError:
                 break
+        self.updateDataGraphs()
         self.updateGraphs()
 
     def confirmSettingsBtnHandler(self):
@@ -910,13 +912,30 @@ class Ui_MainWindow(object):
             if 0 > int(self.kLineEdit.text()) > 10:
                 self.errorMessage("K should be between 0 and 10")
 
-            self.settings.K = int(self.kLineEdit.text())
+            if self.settings.K == int(self.kLineEdit.text()):
+                pass
 
-            self.settings.Ni = np.zeros(self.settings.K)
-            self.settings.mi = np.ones(self.settings.K)
-            self.settings.ei = np.ones(self.settings.K)
-            self.settings.vi = np.ones(self.settings.K) * 1100
-            self.settings.Gamma_i = np.ones(self.settings.K) * 30
+            elif self.settings.K < int(self.kLineEdit.text()):
+                delta = int(self.kLineEdit.text()) - self.settings.K
+                self.settings.Ni = np.concatenate([self.settings.Ni, np.zeros(delta)])
+                self.settings.mi = np.concatenate([self.settings.mi, np.ones(delta)])
+                self.settings.ei = np.concatenate([self.settings.ei, np.ones(delta)])
+                self.settings.vi = np.concatenate([self.settings.vi, np.ones(delta) * 1100])
+                self.settings.Gamma_i = np.concatenate([self.settings.Gamma_i, np.ones(delta) * 30])
+                self.settings.K = int(self.kLineEdit.text())
+            else:
+                self.settings.K = int(self.kLineEdit.text())
+                self.settings.Ni = self.settings.Ni[:self.settings.K]
+                self.settings.mi = self.settings.mi[:self.settings.K]
+                self.settings.ei = self.settings.ei[:self.settings.K]
+                self.settings.vi = self.settings.vi[:self.settings.K]
+                self.settings.Gamma_i = self.settings.Gamma_i[:self.settings.K]
+
+            # self.settings.Ni = np.zeros(self.settings.K)
+            # self.settings.mi = np.ones(self.settings.K)
+            # self.settings.ei = np.ones(self.settings.K)
+            # self.settings.vi = np.ones(self.settings.K) * 1100
+            # self.settings.Gamma_i = np.ones(self.settings.K) * 30
 
             self.settings.d = float(self.dLineEdit.text())
 

@@ -107,6 +107,13 @@ class Ui_Dialog(object):
         self.buttonBox.rejected.connect(Dialog.reject)  # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
+    def setVariables(self, settings: InputVariables, k):
+        self.textEdit.setText(f'{settings.Ni[k]}')
+        self.textEdit_2.setText(f'{settings.mi[k]}')
+        self.textEdit_3.setText(f'{settings.ei[k]}')
+        self.textEdit_4.setText(f'{settings.vi[k]}')
+        self.textEdit_5.setText(f'{settings.Gamma_i[k]}')
+
     def returnVariables(self):
         to_ret = self.textEdit.toPlainText(), self.textEdit_2.toPlainText(), self.textEdit_3.toPlainText(), \
                  self.textEdit_4.toPlainText(), self.textEdit_5.toPlainText()
